@@ -13,36 +13,34 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
-    if (s.length <= 1) {
-        return s.length
-    }
+ var lengthOfLongestSubstring = function(s) {
+     if (s.length <= 1) {
+         return s.length
+     }
 
-    var tmp, map = {}, maxLength = 0, tmpLength, strArray = s.split('');
-    var left = 0, right = 0;
+     var map = {}, maxLength = 0, tmpLength, strArray = s.split('');
 
-    for (var i = 0, length = strArray.length; i < length; i++) {
-        tmp = strArray[i]
-        if (map[tmp]) {
-            tmpLength = i - left
-            if (tmpLength > maxLength) {
-                maxLength = tmpLength
-            }
+     for (var left = 0, right = 0, length = strArray.length; right < length; right++) {
+         if (map[strArray[right]]) {
+             tmpLength = right - left
+             if (tmpLength > maxLength) {
+                 maxLength = tmpLength
+             }
 
-            while (strArray[left] !== tmp) {
-                map[strArray[left]] = false
-                left++
-            }
-            map[strArray[left]] = false
-            left++
-        }
+             while (strArray[left] !== strArray[right]) {
+                 map[strArray[left]] = false
+                 left++
+             }
+             map[strArray[left]] = false
+             left++
+         }
 
-        map[tmp] = true
-    }
+         map[strArray[right]] = true
+     }
 
-    if ((strArray.length - left) > maxLength) {
-        maxLength = strArray.length - left
-    }
+     if ((right - left) > maxLength) {
+         maxLength = right - left
+     }
 
-    return maxLength;
-};
+     return maxLength;
+ };
